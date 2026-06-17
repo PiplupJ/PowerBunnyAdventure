@@ -1,0 +1,76 @@
+{
+    "playerDatas":[
+        {
+            "id" : 1100000,
+            "name" : "TestPlayer",
+            "hp": {
+                "baseValue": 100.0,
+                "growthPerLevel": 0.2
+              },
+              "attack": {
+                "baseValue": 50.0,
+                "growthPerLevel": 0.05
+              },
+              "defense": {
+                "baseValue": 5.0,
+                "growthPerLevel": 0.02
+              },
+              "moveSpeed": {
+                "baseValue": 5.0,
+                "growthPerLevel": 0.0
+              },
+              "criticalRate": {
+                "baseValue": 0.1,
+                "growthPerLevel": 0.2
+              },
+              "attackSpeed": {
+                "baseValue": 1.2,
+                "growthPerLevel": 0.2
+              },
+              "attackDist":{
+                "baseValue" : 100,
+                "growthPerLevel" : 1.0
+              },
+              "resurrectCount": 1,
+              "rad": 0.5,
+              "attackInterval": 1.0,
+              "ShotIDs": [3000000]
+        },
+        {
+          "id" : 1100001,
+          "name" : "PowerBunny01",
+          "hp": {
+              "baseValue": 1000.0,
+              "growthPerLevel": 0.2
+            },
+            "attack": {
+              "baseValue": 200.0,
+              "growthPerLevel": 0.1
+            },
+            "defense": {
+              "baseValue": 10.0,
+              "growthPerLevel": 0.1
+            },
+            "moveSpeed": {
+              "baseValue": 4.0,
+              "growthPerLevel": 0.1
+            },
+            "criticalRate": {
+              "baseValue": 0.05,
+              "growthPerLevel": 0.1
+            },
+            "attackSpeed": {
+              "baseValue": 1.0,
+              "growthPerLevel": 0.2
+            },
+            "attackDist":{
+              "baseValue" : 30,
+              "growthPerLevel" : 0.5
+            },
+            "resurrectCount": 1,
+            "rad": 1,
+            "attackInterval": 1.0,
+            "ShotIDs": [2000002]
+      }
+    ]
+}

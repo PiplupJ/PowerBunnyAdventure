@@ -1,0 +1,179 @@
+{
+    "shotDatas": [
+        {
+            "id" : 2000000,
+            "name" : "TestShot",
+            "moveSpeed" : 10,
+            "rad" : 1,
+            "hitEffectID" : 4200000
+        },
+        {
+            "id" : 2000001,
+            "name" : "SmallHitBox",
+            "moveSpeed" : 0,
+            "rad" : 1,
+            "hitEffectID" : 4200002
+        },
+        {
+            "id" : 2000002,
+            "name" : "PlayerBaseShot",
+            "moveSpeed" : 10,
+            "rad" : 0.5,
+            "hitEffectID" : 4200000
+        },
+        {
+            "id" : 2200000,
+            "name" : "MushroomShot",
+            "moveSpeed" : 7,
+            "rad" : 0.5,
+            "hitEffectID" : 4200001
+        },
+        {
+            "id" : 2200001,
+            "name" : "MushroomBossShot",
+            "moveSpeed" : 3,
+            "rad" : 0.5,
+            "hitEffectID" : 4200001
+        },
+        {
+            "id" : 2200002,
+            "name" : "MushroomBossSplitShot",
+            "moveSpeed" : 3,
+            "rad" : 0.5,
+            "hitEffectID" : 4200001
+        },
+        {
+            "id" : 2200003,
+            "name" : "MushroomBossSplitShot2",
+            "moveSpeed" : 3,
+            "rad" : 0.5,
+            "hitEffectID" : 4200001
+        },
+        {
+            "id" : 2200005,
+            "name" : "MushroomHazard",
+            "moveSpeed" : 0,
+            "rad" : 3,
+            "hitEffectID" : 4200001
+        },
+        {
+            "id" : 2200004,
+            "name" : "MushroomHazardShot",
+            "moveSpeed" : 5,
+            "rad" : 1,
+            "hitEffectID" : 4200001
+        },
+        {
+            "id" : 2000003,
+            "name" : "PlayerDoubleShot",
+            "moveSpeed" : 0,
+            "rad" : 0,
+            "hitEffectID" : 4200000
+        },
+        {
+            "id" : 2000004,
+            "name" : "PlayerBlueBomb",
+            "moveSpeed" : 12,
+            "rad" : 1
+        },
+        {
+            "id" : 2000005,
+            "name" : "BlueBombExplosion",
+            "rad" : 3
+        },
+        {
+            "id" : 2200006,
+            "name" : "PlantChargeAttack",
+            "rad" : 1,
+            "hitEffectID" : 4200002
+        },
+        {
+            "id" : 2200007,
+            "name" : "PlantBite",
+            "rad" : 1,
+            "hitEffectID" : 4200003
+        },
+        {
+            "id" : 2200008,
+            "name" : "PlantTanmakParent"
+        },
+        {
+            "id" : 2200009,
+            "name" : "PlantTanmakChild",
+            "moveSpeed" : 5,
+            "rad" : 0.5,
+            "hitEffectID" : 4200004
+        },
+        {
+            "id" : 2200010,
+            "name" : "PlantBossShotBase",
+            "moveSpeed" : 5,
+            "rad" : 1.5,
+            "hitEffectID" : 4200004
+        },
+        {
+            "id" : 2200011,
+            "name" : "PlantBossShotChild1",
+            "moveSpeed" : 7,
+            "rad" : 1.0,
+            "hitEffectID" : 4200004
+        },
+        {
+            "id" : 2200012,
+            "name" : "PlantBossShotChild2",
+            "moveSpeed" : 9,
+            "rad" : 0.75,
+            "hitEffectID" : 4200004
+        },
+        {
+            "id" : 2200013,
+            "name" : "PlantBossShotChild3",
+            "moveSpeed" : 11,
+            "rad" : 0.5,
+            "hitEffectID" : 4200004
+        },
+        {
+            "id" : 2200014,
+            "name" : "PlantBossChargeAttack",
+            "rad" : 3,
+            "hitEffectID" : 4200002
+        },
+        {
+            "id" : 2000015,
+            "name" : "2xScaleHitBox",
+            "moveSpeed" : 0,
+            "rad" : 2,
+            "hitEffectID" : 4200002
+        },
+        {
+            "id" : 2200016,
+            "name" : "WispExplosion",
+            "moveSpeed" : 0,
+            "rad" : 2
+        },
+        {
+            "id" : 2200017,
+            "name" : "WispHazardShot",
+            "moveSpeed" : 7,
+            "rad" : 1,
+            "hitEffectID":4200005
+        },
+        {
+            "id" : 2200018,
+            "name" : "WispHazardTrap",
+            "moveSpeed" : 0,
+            "rad" : 2
+        },
+        {
+            "id" : 2200019,
+            "name" : "WispMeteor",
+            "moveSpeed" : 5
+        },
+        {
+            "id" : 2200020,
+            "name" : "WispMeteorExplosion",
+            "moveSpeed" : 0,
+            "rad" : 3
+        }
+    ]
+}

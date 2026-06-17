@@ -1,0 +1,25 @@
+{
+    "normalCards" : [
+        { "id" : 8100000, "name" : "Attack+", "cardImagePath" : "Data/AbilityCards/Image/N_AtkPlus", "description" : "Attack.Lv+1", "rarity" : 0 },
+        { "id" : 8100001, "name" : "Defense+", "cardImagePath" : "Data/AbilityCards/Image/N_DefPlus", "description" : "Def.Lv+1", "rarity" : 0 },
+        { "id" : 8100002, "name" : "Critical+", "cardImagePath" : "Data/AbilityCards/Image/N_CritPlus", "description" : "CriticalChance.Lv+1", "rarity" : 0 },
+        { "id" : 8100003, "name" : "HP+", "cardImagePath" : "Data/AbilityCards/Image/N_HpPlus", "description" : "HP.Lv+1", "rarity" : 0 },
+        { "id" : 8100004, "name" : "30% Heal", "cardImagePath" : "Data/AbilityCards/Image/N_HpHeal", "description" : "HP 30% heal", "rarity" : 0 },
+        { "id" : 8100005, "name" : "AttakSpeed+", "cardImagePath" : "Data/AbilityCards/Image/N_AtkSpdPlus", "description" : "AtkSpeed.Lv+1", "rarity" : 0 },
+        { "id" : 8100006, "name" : "MoveSpeed+", "cardImagePath" : "Data/AbilityCards/Image/N_SpdPlus", "description" : "MoveSpeed.Lv+1", "rarity" : 0 }
+    ],
+    "rareCards" : [
+        { "id" : 8200000, "name" : "Attack++", "cardImagePath" : "Data/AbilityCards/Image/R_AtkPlus", "description" : "Attack.Lv+2", "rarity" : 1 },
+        { "id" : 8200002, "name" : "Critical++", "cardImagePath" : "Data/AbilityCards/Image/R_CritPlus", "description" : "CriticalChance.Lv+2", "rarity" : 1 },
+        { "id" : 8200003, "name" : "HP++", "cardImagePath" : "Data/AbilityCards/Image/R_HpPlus", "description" : "HP.Lv+2", "rarity" : 1 },
+        { "id" : 8200004, "name" : "DoubleShot", "cardImagePath" : "Data/AbilityCards/Image/R_DoubleShot", "description" : "Get DoubleShot", "rarity" : 1 },
+        { "id" : 8200005, "name" : "50% Heal", "cardImagePath" : "Data/AbilityCards/Image/R_HpHeal", "description" : "HP 50% heal", "rarity" : 1 }
+    ],
+    "epicCards" : [
+        { "id" : 8300000, "name" : "Attack+++", "cardImagePath" : "Data/AbilityCards/Image/E_AtkPlus", "description" : "Attack.Lv+3", "rarity" : 2 },
+        { "id" : 8300001, "name" : "Critical+++", "cardImagePath" : "Data/AbilityCards/Image/E_CritPlus", "description" : "CriticalChance.Lv+3", "rarity" : 2 },
+        { "id" : 8300002, "name" : "Life+", "cardImagePath" : "Data/AbilityCards/Image/E_LifePlus", "description" : "Life+1", "rarity" : 2 },
+        { "id" : 8300003, "name" : "BlueBomb", "cardImagePath" : "Data/AbilityCards/Image/E_BlueBomb", "description" : "Get BlueBomb", "rarity" : 2 },
+        { "id" : 8300004, "name" : "SuperPower", "cardImagePath" : "Data/AbilityCards/Image/E_SuperPower", "description" : "Atk.Lv+2, Def.Lv+2, Hp.Lv+2", "rarity" : 2 }
+    ]
+}
