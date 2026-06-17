@@ -21,10 +21,8 @@ public class ObjectPool : MonoBehaviour, IObjectPool
     [SerializeField] private UIElementDB uiDB;
     [SerializeField] private ItemDB      itemDB;
     [SerializeField] private AbilityCardDB abilityDB;
-    
-    private PoolDataDB[] _allDBs;
 
-    public bool usingPool;
+    private PoolDataDB[] _allDBs;
 
     //検索速度のため、Cacheを作成
     private Dictionary<int, PoolableObject> objectCache = new Dictionary<int, PoolableObject>();
@@ -85,7 +83,7 @@ public class ObjectPool : MonoBehaviour, IObjectPool
             if (objectCache.TryGetValue(id, out PoolableObject prefab))
 	        {
                 PoolableObject baseObj = Instantiate(prefab, transform);
-                
+
                 baseObj.poolId = id;
                 baseObj.myPool = this;
 
@@ -105,14 +103,9 @@ public class ObjectPool : MonoBehaviour, IObjectPool
     public void ReturnObject(int id, PoolableObject obj)
     {
         //テスト用
-        if(!usingPool)
-        {
-            Destroy(obj);
-        }
-        else{
+
             obj.gameObject.SetActive(false);
             poolDict[id].Enqueue(obj);
-        }
-        
+
     }
 }
