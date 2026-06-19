@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Collections;
 
 
+public enum EnemyState
+{
+    Active, Dead
+}
 public struct EnemyInitContext
 {
     public EnemyData enemyData;
@@ -23,6 +27,8 @@ public abstract class Enemy : PoolableObject
     public Vector3 moveDir;
 
     public Transform target;
+
+    protected EnemyState state;
 
     [SerializeField] protected List<EnemyBehaviour> _behaviours;
     protected EnemyBehaviour _currentBehaviour;
@@ -59,6 +65,8 @@ public abstract class Enemy : PoolableObject
         stat.currentHP = stat.maxHP;
         healthBar.UpdateHealthBar(GetHpRatio());
 
+        this.state = EnemyState.Active;
+
         foreach(var b in _behaviours)
         {
             b.Init(this);
@@ -68,6 +76,8 @@ public abstract class Enemy : PoolableObject
     //次の行動を考える
     public void ProcessAI(float deltaTime)
     {
+        if(this.state!=EnemyState.Active) return; 
+
         healthBar.UpdateRotation();
         if(_currentBehaviour == null || _currentBehaviour.CanShift)
         {
@@ -115,7 +125,8 @@ public abstract class Enemy : PoolableObject
     //死亡
     public virtual void OnDie()
     {
-        _enemyUpdater.RemoveEnemy(this);
+        this.state = EnemyState.Dead;
+        //_enemyUpdater.RemoveEnemy(this);
 
         _currentBehaviour?.OnExit();
         _currentBehaviour = null;
@@ -130,10 +141,11 @@ public abstract class Enemy : PoolableObject
     {
         OnDeath?.Invoke();
 
-        yield return new WaitUntil(() => animationController.GetNormalizedTime("Death")>=0.1f);
+        yield return new WaitUntil(() => animationController.GetNormalizedTime("Death")>=1.0f);
 
         HitEffect death = ObjectPool.Instance.GetObject<HitEffect>(IDRegistry.EFFECT_DEATH);
         death.transform.position = this.transform.position;
+        _enemyUpdater.RemoveEnemy(this);//0619追加
         _enemyUpdater.CreateExpItem(this.transform.position, stat.rewardEXP);
         ReturnToPool();
     }
@@ -154,6 +166,11 @@ public abstract class Enemy : PoolableObject
         if(rotDir.x == 0 && rotDir.y == 0) { return; }
 
         transform.rotation = MovementHelper.GetRoation(rotDir);
+    }
+
+    public EnemyState GetState()
+    {
+        return this.state;
     }
 
 }

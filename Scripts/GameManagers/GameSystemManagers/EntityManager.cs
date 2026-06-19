@@ -209,7 +209,7 @@ public class EntityManager :
     //引数はプレイヤの座標、攻撃範囲
     public Enemy GetNearestTarget(Vector3 playerPos, float maxAttackRange)
     {
-        Debug.Log("現在の敵数:"+_activeEnemies.Count);
+        //Debug.Log("現在の敵数:"+_activeEnemies.Count);
         if(_activeEnemies.Count == 0) { return null; }
 
         Enemy neareastEnemy = null;
@@ -220,6 +220,7 @@ public class EntityManager :
             Enemy enemy = _activeEnemies[i];
 
             if(enemy.IsStealthed) { continue; }
+            if(enemy.GetState()!=EnemyState.Active) { continue; }
 
             Vector3 enemyPos = enemy.transform.position;
 
