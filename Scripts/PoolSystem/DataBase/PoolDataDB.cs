@@ -5,9 +5,9 @@ using System;
 [System.Serializable]
 public class PoolData
 {
-    public int id;
-    public string Name;
-    public PoolableObject prefab;
+    public int id; //ID
+    public string Name; //名前(インスペクタ上で区別用)
+    public PoolableObject prefab;//ゲームオブジェクト
 
 }
 
@@ -15,5 +15,5 @@ public class PoolData
 [CreateAssetMenu(fileName = "PoolDataDB", menuName = "Scriptable Objects/PoolDataDB")]
 public class PoolDataDB : ScriptableObject
 {
-    public List<PoolData> data = new List<PoolData>();
+    public List<PoolData> data = new List<PoolData>(); //リスト
 }

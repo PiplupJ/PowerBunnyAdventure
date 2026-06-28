@@ -64,6 +64,7 @@ public class CardDrawManager : MonoBehaviour, ICardDrawControl
 
     private Player _player;
     
+    //初期化
     public void Init()
     {
         noEpicCount = 0;
@@ -73,11 +74,13 @@ public class CardDrawManager : MonoBehaviour, ICardDrawControl
         _cardDrawDisplayer.HideDisplay(); //カード選択画面は基本的に隠す
     }
 
+    //プレイヤーをセッティング
     public void SetPlayer(Player player)
     {
         _player = player;
     }
 
+    //JSONからカードデータロード
     private void LoadCardData()
     {
         //Resourcesフォルダからjsonファイルを開く
@@ -129,6 +132,7 @@ public class CardDrawManager : MonoBehaviour, ICardDrawControl
         StartCoroutine(CardDrawRoutine(selectedRarity));
     }
 
+    //スロットマシンのような演出実行
     private IEnumerator CardDrawRoutine(CardRarity drawnRarity)
     {
         pickedCards.Clear();
@@ -262,7 +266,7 @@ public class CardDrawManager : MonoBehaviour, ICardDrawControl
 
        
     }
-
+    //入力に応じげ画面で表示するカードを変える
     private void UpdateCurrentPick(float xInput)
     {
         if(xInput > 0){

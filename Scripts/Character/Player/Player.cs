@@ -21,10 +21,10 @@ public interface IPlayerReciever
 
 public class Player : PoolableObject, IPlayerControl, IStatusReceiver, IPlayerReciever
 {
-    public IMapCollision _mapCollision; //マップとの当たり判定のため必要
-    public IPlayerCombatHelper _combatHelper; //弾丸を登録するため必要
-    public ILevelUpSystem _levelUpSystem;
-    public HealthBar _healthBar;
+    public IMapCollision mapCollision; //マップとの当たり判定のため必要
+    public IPlayerCombatHelper combatHelper; //弾丸を登録するため必要
+    public ILevelUpSystem levelUpSystem;
+    public HealthBar healthBar;
 
     public PlayerStat stat;
     protected bool CanAttack;
@@ -42,23 +42,23 @@ public class Player : PoolableObject, IPlayerControl, IStatusReceiver, IPlayerRe
     //public StatusSystem statusSystem;
     public int MaxHP => stat.hp.maxHp;
 
-    [SerializeField] private Transform _damageAnchor;
-    public Vector3 DamageAnchorPos => _damageAnchor.position;
+    [SerializeField] private Transform damageAnchor;
+    public Vector3 DamageAnchorPos => damageAnchor.position;
 
     //初期化
-    public void Init(int id, IMapCollision newMapCollision, IPlayerCombatHelper newCombatHelper, ILevelUpSystem newLevelUpSystem)
+    public void Init(int id, IMapCollision mapCollision, IPlayerCombatHelper combatHelper, ILevelUpSystem levelUpSystem)
     {   
         //ファイルからステータスデータを求める
         stat = PlayerDataManager.GetPlayerStatByID(id);
         stat.InitStats();
-        _mapCollision = newMapCollision;
-        _combatHelper = newCombatHelper;
-        _levelUpSystem = newLevelUpSystem;
+        this.mapCollision = mapCollision;
+        this.combatHelper = combatHelper;
+        this.levelUpSystem = levelUpSystem;
         CanAttack = true;
-        if(_healthBar==null){
-            _healthBar = GetComponent<HealthBar>();
+        if(healthBar==null){
+            healthBar = GetComponent<HealthBar>();
         } 
-        _healthBar.Init();
+        healthBar.Init();
         this.transform.position = Vector3.zero;
 
         animationController.BindToMotion(this);
@@ -80,7 +80,7 @@ public class Player : PoolableObject, IPlayerControl, IStatusReceiver, IPlayerRe
             animationController.UpdateBlendMotion(0.0f);
             PlayerAttack();
         }
-        _healthBar.UpdateRotation();
+        healthBar.UpdateRotation();
     }
 
     //プレイヤの移動処理。移動量を計算して、移動後の座標を求める
@@ -90,15 +90,14 @@ public class Player : PoolableObject, IPlayerControl, IStatusReceiver, IPlayerRe
         
         animationController.UpdateBlendMotion(1.0f);
         
-        
         CheckMove(moveVec); //移動が正しいか
-        _mapCollision.HitTileCheck(this.transform.position, stat.rad);
+        mapCollision.HitTileCheck(this.transform.position, stat.rad);
     }
 
     //マップとの当たり判定を処理して、座標をアップデート
     protected void CheckMove(Vector2 moveVec)
     {
-        Vector2 finalMoveValue = MovementHelper.CheckMove(transform.position, moveVec, stat.rad, _mapCollision);
+        Vector2 finalMoveValue = MovementHelper.CheckMove(transform.position, moveVec, stat.rad, mapCollision);
 
         this.transform.position += new Vector3(finalMoveValue.x, 0.0f, finalMoveValue.y);
 
@@ -112,14 +111,14 @@ public class Player : PoolableObject, IPlayerControl, IStatusReceiver, IPlayerRe
         if(!CanAttack) { return ;}
         
         if(stat.ShotIDs.Count==0 || stat.ShotIDs == null) {
-            Debug.Log("プレイヤの弾丸がありません。");
+            //Debug.Log("プレイヤの弾丸がありません。");
             return;
         }
-        Debug.Log("現在の攻撃範囲"+stat.attackDist.value);
-        Enemy target = _combatHelper.GetNearestTarget(this.transform.position, stat.attackDist.value);
-        //Enemy target = _combatHelper.GetNearestTarget(this.transform.position, stat.attackDist.value);
+        //Debug.Log("現在の攻撃範囲"+stat.attackDist.value);
+        Enemy target = combatHelper.GetNearestTarget(this.transform.position, stat.attackDist.value);
+        //Enemy target = combatHelper.GetNearestTarget(this.transform.position, stat.attackDist.value);
         if(target == null) { 
-            Debug.Log("攻撃対象を見つかりませんでした。");
+            //Debug.Log("攻撃対象を見つかりませんでした。");
             return; 
         }
         
@@ -130,9 +129,9 @@ public class Player : PoolableObject, IPlayerControl, IStatusReceiver, IPlayerRe
         //弾丸を発射
         for(int i = 0; i < stat.ShotIDs.Count; i++){
             //ObjectPoolに発射するShotを求める。
-            _combatHelper.CreatePlayerShot(stat.ShotIDs[i], this.transform.position, stat.attack.value, shotDir);
+            combatHelper.CreatePlayerShot(stat.ShotIDs[i], this.transform.position, stat.attack.value, shotDir);
         }
-        Debug.Log("攻撃完了");
+        //Debug.Log("攻撃完了");
         //クールダウン開始。攻撃周期/攻撃速度待つ
         StartCoroutine(AttackCooldownRoutine(stat.attackInterval/stat.attackSpeed.value));
     }
@@ -158,7 +157,7 @@ public class Player : PoolableObject, IPlayerControl, IStatusReceiver, IPlayerRe
     {
         stat.hp.TakeDamage(damage);
         DamageLabelSpawner.ShowDamage(damage, wasCrit, DamageAnchorPos);
-        _healthBar.UpdateHealthBar(stat.hp.GetHpRatio());
+        healthBar.UpdateHealthBar(stat.hp.GetHpRatio());
         OnHpUpdate?.Invoke();
         if(stat.hp.currentHp<=0){
             OnDie();
@@ -180,7 +179,7 @@ public class Player : PoolableObject, IPlayerControl, IStatusReceiver, IPlayerRe
         HitEffect healEffect = ObjectPool.Instance.GetObject<HitEffect>(IDRegistry.EFFECT_HEAL);
         healEffect.transform.position = transform.position;
         stat.hp.Heal(healAmount);
-        _healthBar.UpdateHealthBar(stat.hp.GetHpRatio());
+        healthBar.UpdateHealthBar(stat.hp.GetHpRatio());
         OnHpUpdate?.Invoke();
     }
 
@@ -189,7 +188,7 @@ public class Player : PoolableObject, IPlayerControl, IStatusReceiver, IPlayerRe
         HitEffect resurrectEffect = ObjectPool.Instance.GetObject<HitEffect>(IDRegistry.RESURRECTION);
         resurrectEffect.transform.position = transform.position;
         stat.hp.Heal(stat.hp.maxHp);
-        _healthBar.UpdateHealthBar(stat.hp.GetHpRatio());
+        healthBar.UpdateHealthBar(stat.hp.GetHpRatio());
         OnHpUpdate?.Invoke();
     }
 }

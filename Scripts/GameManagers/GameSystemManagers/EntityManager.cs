@@ -11,6 +11,7 @@ public class EntityManager :
     IExpOrbRemover, 
     IDropItemSystem
 {
+    //管理するオブジェクト種類別entityリスト
     private List<Enemy> _activeEnemies;
     private List<Shot> _playerShots;
     private List<Shot> _enemyShots;
@@ -18,6 +19,7 @@ public class EntityManager :
     private List<DropItem> _activeItems;
     private List<ExpItem> _expItems;
 
+    //参照用リスト。内容を変更できない
     public IReadOnlyList<Enemy> ActiveEnemies => _activeEnemies;
     public IReadOnlyList<Shot> PlayerShots => _playerShots;
     public IReadOnlyList<Shot> EnemyShots => _enemyShots;
@@ -25,16 +27,16 @@ public class EntityManager :
     public IReadOnlyList<DropItem> ActiveItems => _activeItems;
     public IReadOnlyList<ExpItem> ExpItems => _expItems;
 
-    public event Action AllEnemiesDead;
+    public event Action AllEnemiesDead; //敵殲滅
 
-    private IMapSystem _mapSystem;
+    private IMapSystem _mapSystem;  //マップ情報
 
-    private ShotDataManager shotDataManager;
-    private EnemyDataManager enemyDataManager;
+    private ShotDataManager shotDataManager; //弾ステータス
+    private EnemyDataManager enemyDataManager; //敵ステータス
     
     private ExpDropSystem _expDropSystem; 
 
-    //初期化
+    //生成
     public EntityManager()
     {
         _activeEnemies = new List<Enemy>();
@@ -52,14 +54,14 @@ public class EntityManager :
         
         Debug.Log("EntityManager生成完了");
     }
-
+    //初期化
     public void Init(Player currentPlayer, IMapSystem newMapSystem)
     {
         _player = currentPlayer;
         _mapSystem = newMapSystem;
     }
 
-    
+    //entityの状態更新
     public void HandleEntityState(float deltaTime)
     {
         for(int i = _activeEnemies.Count - 1; i >=0; i--)
@@ -101,14 +103,14 @@ public class EntityManager :
             _enemyShots[i].HandleShotAction(deltaTime);
         }
     }
-    //敵を静止して配置。WaveManagerが呼び出す
+    //敵をマップグリッドをもとに配置。WaveManagerが呼び出す
     public void CreateEnemy(int enemyID, int x_, int y_)
     {
         Vector3 worldPos = _mapSystem.GridToWorldSpace(x_, y_);
 
         CreateEnemyAtPosition(enemyID, worldPos);
     }
-
+    //指定した座標に敵生成
     public void CreateEnemyAtPosition(int enemyID, Vector3 pos)
     {
         //ステータス、マップの当たり判定等の必要なインタフェース注入用変数
@@ -128,7 +130,7 @@ public class EntityManager :
         //敵をEntityListに追加
         AddEnemy(enemy);
     }
-
+    //entityリストに敵追加
     public void AddEnemy(Enemy _enemy)
     {
         _activeEnemies.Add(_enemy);
@@ -141,7 +143,7 @@ public class EntityManager :
         
         CheckAllEnemiesDead();
     }
-
+    //全ての敵が無くなったかを確認
     public void CheckAllEnemiesDead()
     {
         if(_activeEnemies.Count == 0)
@@ -151,6 +153,7 @@ public class EntityManager :
         }
     }
 
+    //指定した座標にプレイヤーの弾生成
     public void CreatePlayerShot(int id, Vector3 spawnPos, int playerAttack, Vector3 shotDir)
     {
         Shot pShot = ObjectPool.Instance.GetObject<Shot>(id);
@@ -160,7 +163,7 @@ public class EntityManager :
         pShot.FireShot(playerAttack, shotDir);
         AddPlayerShot(pShot);
     }
-
+    //entityリストにプレイヤー弾追加
     public void AddPlayerShot(Shot _shot)
     {
         _playerShots.Add(_shot);
@@ -171,7 +174,7 @@ public class EntityManager :
     {
         _playerShots.Remove(_shot);
     }
-
+    //敵の弾生成
     public void CreateEnemyShot(int id, Vector3 spawnPos, int enemyAttack, Vector3 shotDir)
     {
         Shot eShot = ObjectPool.Instance.GetObject<Shot>(id);
@@ -181,7 +184,7 @@ public class EntityManager :
         eShot.FireShot(enemyAttack, shotDir);
         AddEnemyShot(eShot);
     }
-
+    //敵の攻撃用ヒットボックス生成
     public Shot CreateEnemyHitBox(int id, Vector3 spawnPos, int enemyAttack)
     {
         Shot eHitBox = ObjectPool.Instance.GetObject<Shot>(id);
@@ -193,7 +196,7 @@ public class EntityManager :
 
         return eHitBox;
     }
-
+    //entityリストに敵の弾を追加
     public void AddEnemyShot(Shot _shot)
     {
         _enemyShots.Add(_shot);
@@ -235,7 +238,7 @@ public class EntityManager :
         //一番近い位置の敵を返却
         return neareastEnemy;
     }
-
+    //経験値アイテム追加
     public void CreateExpItem(Vector3 pos, float exp)
     {
         ExpDropInfo edi = new ExpDropInfo
@@ -247,24 +250,24 @@ public class EntityManager :
         };
         _expDropSystem.DropExp(edi, AddExpItem);
     }
-    
+    //経験値アイテムをentityリストに追加
     public void AddExpItem(ExpItem exp)
     {
         _expItems.Add(exp);
     }
-
+    //経験値アイテムをリストから除外
     public void RemoveExpItem(ExpItem exp)
     {
         _expItems.Remove(exp);
     }
-
+    //マップグリッドをもとにアイテム配置
     public void CreateDropItem(int itemID, int x_, int y_)
     {
         Vector3 worldPos = _mapSystem.GridToWorldSpace(x_, y_);
 
         CreateItemAtPosition(itemID, worldPos);
     }
-
+    //指定された座標にアイテム配置
     public DropItem CreateItemAtPosition(int itemID, Vector3 pos)
     {
         DropItem item = ObjectPool.Instance.GetObject<DropItem>(itemID);
@@ -275,12 +278,12 @@ public class EntityManager :
 
         return item;
     }
-
+    //アイテムをリストから除外
     public void RemoveDropItem(DropItem item)
     {
         _activeItems.Remove(item);
     }
-
+    //Entityリストクリア
     public void ClearAllEntities()
     {
         ClearList(_activeEnemies);
@@ -291,7 +294,7 @@ public class EntityManager :
         
         Debug.Log("すべてのEntityリストを整理しました。");
     }
-
+    //全てのEntityをプールへ
     private void ClearList<T>(List<T> list ) where T : PoolableObject
     {
         foreach(var obj in list)

@@ -20,6 +20,7 @@ public class ShotDataManager
 {
     private Dictionary<int, ShotData> shotDataDict = new Dictionary<int, ShotData>();
     
+    //JSONから弾データをロード
     public void LoadShotDB()
     {
         if(shotDataDict.Count > 0) return;
@@ -37,7 +38,7 @@ public class ShotDataManager
             Debug.LogError("ShotDB.jsonがありませんでした。");
         }
     }
-
+    //IDに相当する弾データ返却
     public ShotData GetShotDataByID(int id)
     {
          if(shotDataDict.TryGetValue(id, out ShotData data))

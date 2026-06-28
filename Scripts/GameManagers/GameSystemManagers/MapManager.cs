@@ -36,18 +36,18 @@ public class MapManager : IMapSystem
 
     private int [,] mapGrid;
 
-    private Dictionary<int, RoomData> roomDict;
+    private Dictionary<int, RoomData> roomDict; //部屋情報
 
-    public Vector3 startPos;
+    public Vector3 startPos; //開始時プレイヤー配置座標
     public Vector3 goalPos;
 
     public event Action touchedFinish;
 
-    private PoolableObject currentRoom;
-    private PoolableObject startGate;
-    private PoolableObject goalGate;
-    private PoolableObject startPortal;
-    private PoolableObject goalPortal;
+    private PoolableObject currentRoom; //現在の部屋
+    private PoolableObject startGate; //入口ゲート
+    private PoolableObject goalGate;  //出口ゲート
+    private PoolableObject startPortal; //スタートポータル
+    private PoolableObject goalPortal; //ゴールポータル
 
     private List<Vector3> _floorPositions = new List<Vector3>();
     
@@ -63,7 +63,7 @@ public class MapManager : IMapSystem
         roomDict = new Dictionary<int, RoomData>();
         LoadRoomDatas();
     }
-
+    //JSONから部屋情報を読み込む
     private void LoadRoomDatas()
     {
         TextAsset jsonText = Resources.Load<TextAsset>("Data/RoomDatas");
@@ -77,7 +77,7 @@ public class MapManager : IMapSystem
             }
         }
     }
-
+    //部屋情報初期化
     public void MapInit(int RoomID, StageType type)
     {
         MapClear();
@@ -120,7 +120,7 @@ public class MapManager : IMapSystem
         Debug.Log($"MapInit — startPos after:{startPos}");
         currentRoom = ObjectPool.Instance.GetObject<PoolableObject>(RoomID);
     }
-
+    //現在のマップを削除
     private void MapClear()
     {
         if(currentRoom == null)
@@ -135,7 +135,7 @@ public class MapManager : IMapSystem
 
         _floorPositions = null;
     }
-
+    //グリッドをワールド座標へ
     public Vector3 GridToWorldSpace(int gridX, int gridY)
     {
         float WorldPosX = gridX * mapTileSize;
@@ -143,17 +143,17 @@ public class MapManager : IMapSystem
 
         return new Vector3(WorldPosX, 0, WorldPosZ);
     }
-
+    //ワールド座標をグリッドへ(X軸)
     public int WorldSpaceToGridIndexX(float worldPosX)
     {
         return (int)((worldPosX/mapTileSize)+0.5f);
     }
-
+    //ワールド座標をグリッドへ(Z軸)
     public int WorldSpaceToGridIndexZ(float worldPosZ)
     {
         return (int)((-worldPosZ/mapTileSize)+0.5f);
     }
-
+    //ステージ開始時実行 部屋の入口を閉じる
     public void BlockStart()
     {
         startGate = ObjectPool.Instance.GetObject<PoolableObject>(IDRegistry.GATE_START);
@@ -166,7 +166,7 @@ public class MapManager : IMapSystem
         startPortal?.ReturnToPool();
         Debug.Log("BlockStart Done");
     }
-
+    //ステージクリア時実行　部屋の出口を開ける
     public void OpenGate(StageType nextStage)
     {
         int x = WorldSpaceToGridIndexX(goalGate.transform.position.x);
@@ -179,20 +179,20 @@ public class MapManager : IMapSystem
         goalPortal.transform.position = goalPos;
         Debug.Log("Open Gate Done");
     }
-
+    //壁に衝突確認
     public bool MapWallHitCheck(Vector3 pos, float rad)
         => CheckTiles(pos, rad, tile => tile == TileType.WALL);
-
+    //歩けるタイルかを確認
     public bool MapWalkableCheck(Vector3 pos, float rad)
         => CheckTiles(pos, rad, tile => TileType.IsWalkable(tile));
-
+    //立っているタイルの種類を確認
     public void HitTileCheck(Vector3 pos, float rad)
     {
         if(CheckTiles(pos, rad, tile=>tile==TileType.GOAL)){
             touchedFinish?.Invoke();
         }
     }
-
+    //座標にあるタイルがどの状態かを確認
     private bool CheckTiles(Vector3 pos, float rad, Func<int, bool> condition)
     {
         int left = WorldSpaceToGridIndexX(pos.x - rad);
@@ -209,17 +209,17 @@ public class MapManager : IMapSystem
         }
         return false;
     }
-
+    //マップ範囲外確認
     private bool OutOfBound(int x, int y)
     {
         return x < 0 || x >= mapWidth || y < 0 || y >= mapHeight;
     }
-
+    //部屋の中央座標を返却
     public Vector3 GetCenterPosition()
     {
         return GridToWorldSpace(mapWidth/2, mapHeight/2);
     }
-
+    //部屋でランダム座標を返却
     public List<Vector3> GetRandomFloorPositions(int count)
     {
         //必要な時のみ、リストを生成

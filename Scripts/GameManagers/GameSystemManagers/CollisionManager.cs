@@ -2,51 +2,56 @@ using UnityEngine;
 
 public class CollisionManager
 {
-    private IEntityProvider _entityProvider;
+    private IEntityProvider entityProvider;
 
     public CollisionManager()
     {
     }
     //初期化
-    public void Init(IEntityProvider newProvider)
+    public void Init(IEntityProvider entityProvider)
     {
-        _entityProvider = newProvider;
+        this.entityProvider = entityProvider;
     }
-
+    //GameManagerで実行
     public void HandleCollisions()
     {
         PlayerShotCollision();
         EnemyShotCollision();
         ItemCollision();
     }
-
+    //経験値アイテムは、ステージ終了後実行するために別
     public void HandleExpItemCollisions()
     {
         ExpItemCollision();
     }
 
+    //プレイヤー弾と敵の衝突判定
     private void PlayerShotCollision()
     {   
         //弾丸がないなら実行しない
-        if(_entityProvider.PlayerShots.Count == 0) { return; }
+        if(entityProvider.PlayerShots.Count == 0) { return; }
         //弾丸と敵の当たり判定
-        for(int i = _entityProvider.PlayerShots.Count - 1; i >=0; i--)
+        for(int i = entityProvider.PlayerShots.Count - 1; i >=0; i--)
         {
-            Shot pShot = _entityProvider.PlayerShots[i];
+            Shot pShot = entityProvider.PlayerShots[i];
 
-            for(int j = _entityProvider.ActiveEnemies.Count - 1; j>=0; j--)
+            for(int j = entityProvider.ActiveEnemies.Count - 1; j>=0; j--)
             {
-                Enemy enemy = _entityProvider.ActiveEnemies[j];
+                Enemy enemy = entityProvider.ActiveEnemies[j];
+
+                //敵が無くなった状態ならパス
+                if(enemy.GetState()!=EnemyState.Active) { continue; }
 
                 float combinedRad = pShot.shotData.rad + enemy.stat.rad;
-
+                //衝突したか
                 if(hadCollision(pShot.transform.position, enemy.transform.position, combinedRad))
                 {
+                    //敵が隠しているか
                     if(enemy.IsStealthed) { continue; }
-
+                    //この弾にもう攻撃されたか
                     if (!pShot.TryHit(enemy.GetInstanceID())) continue;
                     //クリティカル攻撃だったか
-                    bool wasCritical = DamageCalculator.IsCriticalHit(_entityProvider.ActivePlayer.stat.criticalRate.value);
+                    bool wasCritical = DamageCalculator.IsCriticalHit(entityProvider.ActivePlayer.stat.criticalRate.value);
                     //弾丸を最終ダメージを求めて、敵のダメージ判定を呼び出す。
                     int finalDamage;
                     if(wasCritical)
@@ -67,22 +72,23 @@ public class CollisionManager
             }
         }
     }
-
+    //敵の弾とプレイヤーの衝突判定
     private void EnemyShotCollision()
     {
         //弾丸がないなら実行しない
-        if(_entityProvider.EnemyShots.Count == 0) { return; }
+        if(entityProvider.EnemyShots.Count == 0) { return; }
 
-        Player player = _entityProvider.ActivePlayer;
+        Player player = entityProvider.ActivePlayer;
 
-        for(int i = _entityProvider.EnemyShots.Count - 1; i >=0; i--)
+        for(int i = entityProvider.EnemyShots.Count - 1; i >=0; i--)
         {
-            Shot eShot = _entityProvider.EnemyShots[i];
+            Shot eShot = entityProvider.EnemyShots[i];
 
             float combinedRad = eShot.shotData.rad + player.stat.rad;
-
+            //衝突したか
             if(hadCollision(eShot.transform.position, player.transform.position, combinedRad))
             {
+                //この弾にもう攻撃されたか
                 if (!eShot.TryHit(player.GetInstanceID())) continue;
                 //弾丸を最終ダメージを求めて、敵のダメージ判定を呼び出す。
                 int finalDamage = DamageCalculator.GetFinalDamage(eShot.attack, player.stat.defense.value);
@@ -94,16 +100,16 @@ public class CollisionManager
             }        
         }
     }
-
+    //プレイヤーとアイテムの衝突判定
     private void ItemCollision()
     {
-        if(_entityProvider.ActiveItems.Count==0) { return; }
+        if(entityProvider.ActiveItems.Count==0) { return; }
 
-        Player player = _entityProvider.ActivePlayer;
+        Player player = entityProvider.ActivePlayer;
 
-        for(int i = _entityProvider.ActiveItems.Count - 1; i >=0; i--)
+        for(int i = entityProvider.ActiveItems.Count - 1; i >=0; i--)
         {
-            DropItem item = _entityProvider.ActiveItems[i];
+            DropItem item = entityProvider.ActiveItems[i];
 
             float combinedRad = item.rad + player.stat.rad;
 
@@ -114,27 +120,27 @@ public class CollisionManager
             }
         }
     }
-
+    //プレイヤーと経験値オブの衝突判定
     private void ExpItemCollision()
     {
-        if(_entityProvider.ExpItems.Count==0) { return; }
+        if(entityProvider.ExpItems.Count==0) { return; }
 
-        Player player = _entityProvider.ActivePlayer;
+        Player player = entityProvider.ActivePlayer;
 
-        for(int i = _entityProvider.ExpItems.Count - 1; i >=0; i--)
+        for(int i = entityProvider.ExpItems.Count - 1; i >=0; i--)
         {
-            ExpItem exp = _entityProvider.ExpItems[i];
+            ExpItem exp = entityProvider.ExpItems[i];
 
             float combinedRad = exp.rad + player.stat.rad;
 
             if(hadCollision(exp.transform.position, player.transform.position, combinedRad))
             {
-                player._levelUpSystem.ExpCalculation(exp.rewardExp);
+                player.levelUpSystem.ExpCalculation(exp.rewardExp);
                 exp.ApplyEffect();
             }
         }
     }
-    
+    //衝突したかを判定
     private bool hadCollision(Vector3 posA, Vector3 posB, float combinedRad)
     {
         Vector3 distVec = posA - posB;

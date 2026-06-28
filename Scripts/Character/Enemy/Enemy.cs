@@ -3,17 +3,18 @@ using System;
 using System.Collections.Generic;
 using System.Collections;
 
-
+//敵の状態
 public enum EnemyState
 {
     Active, Dead
 }
+//敵の初期化に必要な情報
 public struct EnemyInitContext
 {
-    public EnemyData enemyData;
-    public IMapCollision mapCollision;
-    public IEnemyEntityUpdater updater;
-    public Transform target;
+    public EnemyData enemyData; //敵ステータス
+    public IMapCollision mapCollision; //参照用マップ情報
+    public IEnemyEntityUpdater updater; //管理者クラスに弾丸生成を報告
+    public Transform target; //ターゲット(プレイヤーの座標)
 }
 //抽象クラスで継承用
 public abstract class Enemy : PoolableObject
@@ -24,23 +25,27 @@ public abstract class Enemy : PoolableObject
 
     public EnemyData stat;
 
-    public Vector3 moveDir;
+    public Vector3 moveDir; //移動方向
 
     public Transform target;
 
     protected EnemyState state;
 
-    [SerializeField] protected List<EnemyBehaviour> _behaviours;
-    protected EnemyBehaviour _currentBehaviour;
-    protected EnemyBehaviour _nextBehaviour;
+    [SerializeField] protected List<EnemyBehaviour> _behaviours; //行動リスト
+    protected EnemyBehaviour _currentBehaviour; //現在実行している行動
+    protected EnemyBehaviour _nextBehaviour; //次の行動
 
+    //モーション制御
    [SerializeField] public EnemyAnimationController animationController;
 
-   public event Action OnDeath;
+    //死亡した時実行するデリゲート
+    public event Action OnDeath;
 
+    //ダメージ数値が生成される位置
     [SerializeField] private Transform _damageAnchor;
     public Vector3 DamageAnchorPos => _damageAnchor.position;
 
+    //隠しているか
     public bool IsStealthed = false;
     
     //体力バーを設定
@@ -50,11 +55,12 @@ public abstract class Enemy : PoolableObject
             healthBar = GetComponent<HealthBar>();
         }
         healthBar.Init();
+        //行動を優先度が高い順に整列する
         _behaviours.Sort((a,b)=> b.Priority.CompareTo(a.Priority));
         
         animationController.BindDeathEvent(this);
     }
-
+    //初期化
     public virtual void InitStat(EnemyInitContext eic)
     {
         stat = eic.enemyData;
@@ -136,38 +142,42 @@ public abstract class Enemy : PoolableObject
         //ReturnToPool();]
         //DeathBehaviourの後に実行
     }
-
+    //死亡処理
     private IEnumerator DeathRoutine()
     {
         OnDeath?.Invoke();
 
         yield return new WaitUntil(() => animationController.GetNormalizedTime("Death")>=1.0f);
 
+        //エフェクト生成
         HitEffect death = ObjectPool.Instance.GetObject<HitEffect>(IDRegistry.EFFECT_DEATH);
         death.transform.position = this.transform.position;
-        _enemyUpdater.RemoveEnemy(this);//0619追加
+        //敵リストから自分を除外
+        _enemyUpdater.RemoveEnemy(this);
+        //経験値アイテム生成
         _enemyUpdater.CreateExpItem(this.transform.position, stat.rewardEXP);
+        //プールに戻る
         ReturnToPool();
     }
-
+    //無効化されたら、念のためにコルーチンを終了
     protected void OnDisable() 
     {
         IsStealthed = false;
         StopAllCoroutines();
     }
-
+    //残り体力の割合を返却
     public float GetHpRatio()
     {
         return (float)stat.currentHP/stat.maxHP;
     }
-
+    //ターゲットを向いて回転
     public void RotateToTarget(Vector2 rotDir)
     {
         if(rotDir.x == 0 && rotDir.y == 0) { return; }
 
         transform.rotation = MovementHelper.GetRoation(rotDir);
     }
-
+    //現在の状態(生存・死亡)を返却
     public EnemyState GetState()
     {
         return this.state;

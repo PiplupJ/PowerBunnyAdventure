@@ -131,6 +131,7 @@ public class GameManager : MonoBehaviour
         }
     }
     
+    //物理的な移動や衝突関連更新
     private void FixedUpdate()
     {
         if(currentGameState != GameState.GameMode) { return ;}
@@ -146,14 +147,14 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    
+    //ステージをロード
     private void StageLoad()
     {
         PushGameState(GameState.StandbyMode);
         stageManager.LoadStage();
         Debug.Log("ステージロード中");
     }
-
+    //ステージ開始演出実行
     private void StageStart()
     {
         //プレイヤを自動移動
@@ -169,7 +170,7 @@ public class GameManager : MonoBehaviour
         StartCoroutine(playerController.Action.ExitFromPortal(distToMove, StageStartAction));
         //マップの出発地点に戻りません。
     }
-
+    //ステージ開始演出終了後、ゲームモードに入る
     private void StageStartAction()
     {
         stageManager.OnStageStart();
@@ -184,9 +185,10 @@ public class GameManager : MonoBehaviour
         //マップのゲートを開く
         stageManager.OnStageClear();
     }
-
+    //次のステージへ
     private void ToNextStage()
     {
+        //残り作業があればreturn
         if (entityManager.ExpItems.Count > 0) return;
         if (currentGameState != GameState.GameMode) return;
         
@@ -197,7 +199,7 @@ public class GameManager : MonoBehaviour
         playerController.IsAuto = true;
         StartCoroutine(playerController.Action.EnterToPortal(portalPos, OnStageTransition));
     }
-
+    //ステージ転換時、フェードイン・フェードアウト
     public void OnStageTransition()
     {
         transition.StartTransition(LoadNextStage);
@@ -226,7 +228,7 @@ public class GameManager : MonoBehaviour
             _stateStack.Pop();
         }
     }
-
+    //アイテム獲得イベント開始
     public void StartCardDrawEvent()
     {
         PushGameState(GameState.CardDrawMode);
@@ -260,7 +262,7 @@ public class GameManager : MonoBehaviour
         PushGameState(GameState.PauseMode);
         resultController.Activate(GameResult.Victory);
     }
-
+    //ゲームオーバー
     private void ProcessGameOver()
     {
         playerController.IsAuto = true;

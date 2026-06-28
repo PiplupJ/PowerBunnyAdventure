@@ -45,12 +45,12 @@ public class PlayerController : MonoBehaviour
         PushControlMode(ControlMode.GameMode);
         Debug.Log("PlayerController初期化完了");
     }
-    
+    //プレイヤーをセッティング
     public void SetPlayer(IPlayerControl selectedPlayer)
     {
         _currentPlayer = selectedPlayer;
     }
-   
+   //更新
     private void Update()
     {
         if(IsAuto) { return; }
@@ -58,15 +58,19 @@ public class PlayerController : MonoBehaviour
         bool selectInput = Select.WasPressedThisFrame();
         switch(_controlMode)
         {
+            //ゲームモードならプレイヤー操作
             case ControlMode.GameMode :
                 _currentPlayer.HandlePlayerInput(_directionInput);
                 break;
+            //カード選択モードならカード選択操作
             case ControlMode.CardDrawMode :
                 cardDrawControl.HandleCardSelection( _directionInput, selectInput);
                 break;
+            default :
+                break;
         }
     }
-
+    //物理的な、プレイヤーの移動に関する操作
     private void FixedUpdate() 
     {
         if(_controlMode != ControlMode.GameMode || _currentPlayer == null) { return; }    
@@ -75,12 +79,12 @@ public class PlayerController : MonoBehaviour
 
         _currentPlayer.HandlePlayerAction(dt);
     }
-
+    //操作モード切り替え
     public void PushControlMode(ControlMode newMode)
     {
         _controlModeStack.Push(newMode);
     }
-
+    //操作モードを前の状態へ
     public void PopControlMode()
     {
         if(_controlModeStack.Count > 1)

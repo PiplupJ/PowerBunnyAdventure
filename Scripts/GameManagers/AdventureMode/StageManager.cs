@@ -16,6 +16,8 @@ public class StageManager
 
     public Dictionary<int, StageData> stageDataDict;
     private StageData currentStage;
+    
+    //生成
     public StageManager()
     {
         stageDataDict = new Dictionary<int, StageData>();
@@ -24,12 +26,13 @@ public class StageManager
         SetCurrentStage(); 
     }
 
+    //初期化
     public void Init(MapManager mapManager, WaveManager waveManager)
     {
         _mapManager = mapManager;
         _waveManager = waveManager;    
     }
-
+    //JSONからステージデータロード
     private void LoadAllStageData(string currentWorld)
     {
          //Resourcesフォルダからjsonファイルを開く
@@ -46,7 +49,7 @@ public class StageManager
         
         Debug.Log($"ステージデータのロード完了。読み込んだデータの数：{stageDataDict.Count}");
     }
-
+    //現在のステージセット
     private void SetCurrentStage()
     {
         currentStage = stageDataDict[stageIndex];
@@ -87,14 +90,14 @@ public class StageManager
             AllStageFinished?.Invoke();
         }
     }
-
+    //ステージクリア時実行(指揮官クラスが)
     public void OnStageClear()
     {
         stageIndex++;
         SetCurrentStage();
         _mapManager.OpenGate(currentStage.stageType);
     }
-
+    //ステージ開始時入口を閉じる
     public void OnStageStart()
     {
         _mapManager.BlockStart();

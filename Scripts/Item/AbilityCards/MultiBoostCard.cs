@@ -15,11 +15,12 @@ public class StatBoostEntry
 }
 public class MultiBoostCard : AbilityCard
 {
+    //このカードで得られるステータスバフをインスペクターで作成
     [SerializeField] private List<StatBoostEntry> _statBoosts;
 
+    //カードの効果実行
     public override void ApplyEffect(Player player)
     {
-        
         foreach(var boost in _statBoosts)
         {
             ApplyStatBoost(player, boost);
@@ -27,6 +28,7 @@ public class MultiBoostCard : AbilityCard
         ReturnToPool();
     }
 
+    //持っているデータ分のステータス増加を適用
     private void ApplyStatBoost(Player player, StatBoostEntry boost)
     {
         switch(boost.statType)

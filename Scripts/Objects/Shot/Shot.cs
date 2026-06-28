@@ -4,9 +4,10 @@ using System.Collections.Generic;
 public abstract class Shot : PoolableObject
 {
     
-    protected HashSet<int> alreadyHit = new HashSet<int>();
+    //攻撃されたリスト。同じ攻撃に重複されて攻撃されることを防ぐため
+    protected HashSet<int> alreadyHit = new HashSet<int>(); 
 
-    public ShotData shotData;
+    public ShotData shotData; //ステータス情報
     public int attack; //基本プレイヤの数値によって決定
     public Vector3 moveDirection; //移動向き
 
@@ -16,6 +17,7 @@ public abstract class Shot : PoolableObject
 
     public Vector3 prevPos;
 
+    //初期化
     public void SetShotData(ShotData newData, IMapCollision mapCollision, IShotManager manager, bool isPlayerShot)
     {
         shotData = newData;
@@ -30,14 +32,14 @@ public abstract class Shot : PoolableObject
         this.moveDirection = shotDir;
         this.transform.rotation = MovementHelper.GetRoation(new Vector2(shotDir.x, shotDir.z));
     } 
-
+    //攻撃できる対象かを確認
     public virtual bool TryHit(int instanceID)
     {
         if(alreadyHit.Contains(instanceID)) { return false; }
         alreadyHit.Add(instanceID);
         return true;
     }
-
+    //弾ではなく、ヒットボックスとして初期化
     public void InitAsHitBox(int shooterAttack)
     {
         this.attack = shooterAttack;

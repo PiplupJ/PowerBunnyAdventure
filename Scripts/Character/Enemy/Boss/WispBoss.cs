@@ -23,29 +23,35 @@ public class WispBoss : Enemy
     {
         base.OnHit(damage, wasCritical);
 
-        if(GetHpRatio()<=hpRatioP3 && _phase == BossPhase.Phase2)
-        {
-            EnterPhase3();
-        }
-        else if(GetHpRatio()<=hpRatioP2 && _phase == BossPhase.Phase1)
+        //体力数値が一定以上下がったら次のフェイズに入る
+        if(GetHpRatio()<=hpRatioP2 && _phase < BossPhase.Phase2)
         {
             EnterPhase2();
         }
+
+        if(GetHpRatio()<=hpRatioP3 && _phase < BossPhase.Phase3)
+        {
+            EnterPhase3();
+        }
+        
     }
 
+    //フェイズ2
     private void EnterPhase2()
     {
         enemySummon.SetPriority(150);
         kiteMovement.SetPriority(80);
-
+        
         _phase = BossPhase.Phase2;
+        //行動リスト再整列
         _behaviours.Sort((a,b)=> b.Priority.CompareTo(a.Priority));
     }
-
+    //フェイズ3
     private void EnterPhase3()
     {
         meteorSummon.SetPriority(200);
         _phase = BossPhase.Phase3;
+        //行動リスト再整列
         _behaviours.Sort((a,b)=> b.Priority.CompareTo(a.Priority));
     }
 
