@@ -24,7 +24,6 @@ public class ObjectPool : MonoBehaviour, IObjectPool
     
     private PoolDataDB[] _allDBs;
 
-    public bool usingPool;
 
     //検索速度のため、Cacheを作成
     private Dictionary<int, PoolableObject> objectCache = new Dictionary<int, PoolableObject>();
@@ -104,15 +103,8 @@ public class ObjectPool : MonoBehaviour, IObjectPool
     //PoolableObjectがReturnToPool()で実行
     public void ReturnObject(int id, PoolableObject obj)
     {
-        //テスト用
-        if(!usingPool)
-        {
-            Destroy(obj);
-        }
-        else{
-            obj.gameObject.SetActive(false);
-            poolDict[id].Enqueue(obj);
-        }
-        
+    
+        obj.gameObject.SetActive(false);
+        poolDict[id].Enqueue(obj);
     }
 }
