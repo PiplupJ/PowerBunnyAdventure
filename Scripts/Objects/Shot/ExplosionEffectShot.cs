@@ -1,6 +1,7 @@
 using UnityEngine;
 using System.Collections;
-
+//爆発による影響
+//エフェクトがある時間中継続
 public class ExplosionEffectShot : Shot
 {
     [SerializeField] private ParticleSystem particle;

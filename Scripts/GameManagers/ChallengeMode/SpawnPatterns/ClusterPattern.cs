@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+//敵配置パターン
+//真ん中に3*3
 public class ClusterPattern : ISpawnPattern
 {
     public List<Vector2> GetCells(GridContext grid)

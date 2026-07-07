@@ -1,7 +1,8 @@
 using UnityEngine;
-
+//曲がる弾
 public class CurvingShot : Shot
 {
+
     [SerializeField] private float _curveAngle = 45.0f;
     [SerializeField] private float _curveFrequency = 0.5f;
     private float timer;
@@ -27,7 +28,7 @@ public class CurvingShot : Shot
             OnDie();
             return;
         }
-
+        //曲がる時間になったら曲がる
         if(timer >= _curveFrequency)
         {
             float rotateAngle = _curveAngle * Mathf.Deg2Rad * _curveDirection;

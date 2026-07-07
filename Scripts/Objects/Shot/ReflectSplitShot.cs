@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//壁にぶつかったら移動向きが変わる弾
 public class ReflectSplitShot : Shot
 {
     [SerializeField] private int _childShotID;

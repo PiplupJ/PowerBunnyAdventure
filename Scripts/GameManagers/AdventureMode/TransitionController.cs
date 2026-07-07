@@ -7,7 +7,7 @@ public class TransitionController : MonoBehaviour
 {
     [SerializeField] private Image maskImage;
     [SerializeField] private float transitionSpeed = 2.0f;
-
+    //フェードインフェードアウト開始
     public void StartTransition(Action onScreenCovered)
     {
         StartCoroutine(TransitionRoutine(onScreenCovered));

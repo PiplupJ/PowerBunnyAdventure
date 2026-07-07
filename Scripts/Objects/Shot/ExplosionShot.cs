@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//爆発する弾
 public class ExplosionShot : Shot
 {
     [SerializeField] private int explosionID;

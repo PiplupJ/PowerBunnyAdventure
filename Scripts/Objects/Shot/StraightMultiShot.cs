@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//横に一列に弾を生成して無くす
 public class StraightMultiShot : Shot
 {
     [SerializeField] private int shotID = IDRegistry.BASE_SHOT;

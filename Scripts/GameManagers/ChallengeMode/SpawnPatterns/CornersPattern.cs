@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+//敵配置パターン
+//角で生成
 public class CornersPattern : ISpawnPattern
 {
     public List<Vector2> GetCells(GridContext grid)

@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//分裂する弾
 public class SplitShot : Shot
 {
     [SerializeField] private float splitTimer = 1.5f;
@@ -37,7 +37,7 @@ public class SplitShot : Shot
         effect.transform.position = new Vector3(transform.position.x, 1, transform.position.z);
         OnDie();
     }
-
+    //分裂する
     private void Split()
     {
         float baseAngle = Mathf.Atan2(moveDirection.x, moveDirection.z);

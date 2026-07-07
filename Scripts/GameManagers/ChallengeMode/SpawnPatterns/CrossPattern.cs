@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+//敵生成パターン
+//クロスで生成
 public class CrossPattern : ISpawnPattern
 {
     public List<Vector2> GetCells(GridContext grid)

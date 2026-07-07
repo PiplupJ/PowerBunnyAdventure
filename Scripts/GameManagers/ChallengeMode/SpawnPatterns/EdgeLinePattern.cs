@@ -1,6 +1,8 @@
 using UnityEngine;
 using System.Collections.Generic;
 
+//敵生成パターン
+//最上の一列
 public class EdgeLinePattern : ISpawnPattern
 {
     public List<Vector2> GetCells(GridContext grid)

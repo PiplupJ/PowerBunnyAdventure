@@ -41,7 +41,7 @@ public class ChallengeWaveManager
         BuildPatterns();
     }
 
-
+    
     private void LoadEnemyPool()
     {
         //Resourcesフォルダからjsonファイルを開く
@@ -57,7 +57,7 @@ public class ChallengeWaveManager
             Debug.LogError("EnemyPool.jsonファイルはありません");
         }
     }
-
+    //現在のマップグリッドをもとにパターン生成
     private void BuildPatterns()
     {
         spawnPatterns = new List<PatternEntry>
@@ -81,7 +81,7 @@ public class ChallengeWaveManager
             GenerateEnemies(keyValue);
         }
     }
-
+    //ボスの場合、マップ中央
     private void GenerateBoss(int value)
     {
         if(value>=enemyPool.boss.Count){
@@ -95,7 +95,7 @@ public class ChallengeWaveManager
         BGMController.Instance.PlayByStageMusic("Desert_Boss");
 
     }   
-
+    //一般ウェーブの場合、ランダムパターンで生成
     private void GenerateEnemies(int value)
     {
        if(value>=enemyPool.enemies.Count){

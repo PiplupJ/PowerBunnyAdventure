@@ -121,7 +121,7 @@ public class MeteorAttackBehaviour : EnemyBehaviour
         }
         
     }
-
+    //生成座標を定義
     Vector3 GetMeteorPos()
     {
         Vector3 targetPos = _enemy.target.position;

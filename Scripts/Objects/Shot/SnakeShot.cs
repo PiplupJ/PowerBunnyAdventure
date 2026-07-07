@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//ヘビのようにジグザグに動く弾
 public class SnakeShot : Shot
 {
     [SerializeField] private float _curveAngle = 45.0f;
@@ -53,7 +53,7 @@ public class SnakeShot : Shot
         effect.transform.position = transform.position;
         OnDie();
     }
-
+    //前とは反対向きに曲がる
     private void RenewMoveDirection()
     {
         _curveStep++;

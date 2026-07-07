@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//ジグザグで動き、分裂する弾
 public class SnakeSplitShot : Shot
 {
     [SerializeField] private float _curveAngle = 45.0f;

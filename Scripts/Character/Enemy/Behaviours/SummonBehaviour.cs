@@ -15,7 +15,7 @@ public class SummonBehaviour : EnemyBehaviour
 
     private bool CanSummon;
     private Vector3 summonPos;
-
+    //初期化
     public override void Init(Enemy enemy)
     {
         StopAllCoroutines();
@@ -44,6 +44,7 @@ public class SummonBehaviour : EnemyBehaviour
             case SummonPhase.Cast :
                 if(t >= summonFrame)
                 {
+                    //エフェクト生成
                     PoolableObject summonEffect = ObjectPool.Instance.GetObject<PoolableObject>(IDRegistry.SUMMON_EFFECT);
                     summonEffect.transform.position = summonPos;
                     _phase = SummonPhase.Summon;
@@ -52,6 +53,7 @@ public class SummonBehaviour : EnemyBehaviour
             case SummonPhase.Summon :
                 if(t >= 1.0f)
                 {
+                    //召喚物生成
                     _enemy._enemyUpdater.CreateEnemyAtPosition(_summonID, summonPos);
                     _phase = SummonPhase.Done;
                 }

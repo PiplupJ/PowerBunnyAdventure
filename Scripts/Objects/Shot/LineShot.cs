@@ -1,5 +1,6 @@
 using UnityEngine;
 
+//弾を一列に生成して無くす
 public class LineShot : Shot
 {
     [SerializeField] private int shotID;

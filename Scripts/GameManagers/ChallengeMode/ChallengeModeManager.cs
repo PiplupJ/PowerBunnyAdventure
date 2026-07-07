@@ -27,6 +27,7 @@ public class ChallengeModeManager : MonoBehaviour
     private ChallengeWaveManager waveManager;
 
     private Player player;
+    [SerializeField] private int playerID = 1100001;
 
     int waveIndex;
     [SerializeField] private int bossAppearInterval = 4;
@@ -59,7 +60,7 @@ public class ChallengeModeManager : MonoBehaviour
     private void Start()
     {
         PlayerDataManager.LoadPlayerDB();
-        PlayerDataManager.SetCurrentPlayerID(1100001); //臨時
+        PlayerDataManager.SetCurrentPlayerID(playerID); //臨時
         //プレイヤを配置、初期化
         player = ObjectPool.Instance.GetObject<Player>(PlayerDataManager.currentPlayerID);
         player.Init(player.poolId, mapManager, entityManager, levelManager);
@@ -92,7 +93,7 @@ public class ChallengeModeManager : MonoBehaviour
 
         player.PlayerIsDead -= ProcessGameOver;
     }
-
+    
     private void StageSetUp()
     {
         PushGameState(GameState.StandbyMode);

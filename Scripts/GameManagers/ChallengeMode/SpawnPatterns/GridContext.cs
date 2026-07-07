@@ -18,7 +18,7 @@ public interface ISpawnPattern
 {
     List<Vector2> GetCells(GridContext grid);
 }
-
+//継承して敵生成パターンを定義
 public readonly struct PatternEntry
 {
     public readonly ISpawnPattern pattern;

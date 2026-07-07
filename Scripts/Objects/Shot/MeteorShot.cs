@@ -1,5 +1,6 @@
 using UnityEngine;
-
+//メテオ
+//上から下へ移動、目標高さまで下がったら爆発
 public class MeteorShot : Shot
 {
     [SerializeField] private float _fallHeight = 8f;  

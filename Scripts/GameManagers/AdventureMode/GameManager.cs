@@ -42,11 +42,15 @@ public class GameManager : MonoBehaviour
     public StageManager stageManager; //ステージをロード
     
     //プレイヤ。GameManagerがシーンに配置
+    [SerializeField] private int playerID = 1100001;
     public Player player; //プレイヤ。
 
     //初期化１:変数の初期化、クラスの生成、クラスのイベントをサブスクリプト
     private void Awake()
     {
+        //シングルトーンの重複を防ぐ
+        if (Instance != null && Instance != this) { Destroy(gameObject); return; }
+
         Instance = this;
  
         //基本的にGameModeにするため、スタックにGameModeをプッシュ
@@ -93,7 +97,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         PlayerDataManager.LoadPlayerDB();
-        PlayerDataManager.SetCurrentPlayerID(1100001); //臨時
+        PlayerDataManager.SetCurrentPlayerID(playerID); 
         //プレイヤを配置、初期化
         player = ObjectPool.Instance.GetObject<Player>(PlayerDataManager.currentPlayerID);
         player.Init(player.poolId, mapManager, entityManager, levelManager);

@@ -49,14 +49,14 @@ public class MeleeAttackBehaviour : EnemyBehaviour
             case AttackPhase.WindUp :
                 if(t >= activeFrame)
                 {
-                    SpawnHitBox();
+                    SpawnHitBox(); //ヒットボックスを生成
                     _phase = AttackPhase.Active;
                 }
                 break;
             case AttackPhase.Active :
                 if(t >= recoverFrame)
                 {
-                    ReleaseHitBox();
+                    ReleaseHitBox(); //ヒットボックスを無効化
                     _phase = AttackPhase.Recover;
                 }
                 break;
@@ -68,7 +68,7 @@ public class MeleeAttackBehaviour : EnemyBehaviour
                 break;
             case AttackPhase.Done :
                 StartCoroutine(AttackCooldownRoutine(attackInterval/_enemy.stat.attackSpeed));
-                OnExit();
+                CanShift = true;
                 break;
         }
     }

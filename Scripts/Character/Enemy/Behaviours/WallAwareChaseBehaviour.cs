@@ -1,5 +1,5 @@
 using UnityEngine;
-
+//壁に迂回してプレイヤーを追跡
 public class WallAwareChaseBehaviour : ChaseBehaviour
 {
     [SerializeField] private float _probeAngle   = 45f; 
@@ -24,6 +24,7 @@ public class WallAwareChaseBehaviour : ChaseBehaviour
 
         moveVec = MovementHelper.CheckMove(transform.position, moveVec, moveRad, _enemy._mapCollision);
 
+        //壁によって動かなかったかを確認
         if(moveVec.x * moveVec.x + moveVec.y * moveVec.y> 0.0001)
         {
             return moveVec;
@@ -32,7 +33,8 @@ public class WallAwareChaseBehaviour : ChaseBehaviour
         Vector2 bestMoveVec  = Vector2.zero;
         float   minDistSqr  = float.MaxValue;
         Vector3 targetPos    = _enemy.target.position;
-
+        
+        //他の向きへの移動を試す
         for(int i = 1; i <= _probeCount; i++)
         {
             float angle = _probeAngle * i * Mathf.Deg2Rad;
