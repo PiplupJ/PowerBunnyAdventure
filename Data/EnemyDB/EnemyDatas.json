@@ -1,0 +1,136 @@
+{
+    "enemyDatas": [
+        {
+            "id" : 1200000,
+            "name" : "TestEnemy",
+            "maxHP" : 100,
+            "attack" : 10,
+            "defense" : 10,
+            "moveSpeed" : 1,
+            "attackDist" : 100,
+            "attackSpeed" : 1,
+            "rad" : 1,
+            "rewardEXP" : 10
+        },
+        {
+            "id" : 1200001,
+            "name" : "Mushroom_MeleeType",
+            "maxHP" : 1000,
+            "attack" : 100,
+            "defense" : 10,
+            "moveSpeed" : 2,
+            "attackDist" : 1,
+            "attackSpeed" : 1,
+            "rad" : 1,
+            "rewardEXP" : 10
+        },
+        {
+            "id" : 1200002,
+            "name" : "Mushroom_RangedType",
+            "maxHP" : 1000,
+            "attack" : 100,
+            "defense" : 10,
+            "moveSpeed" : 1,
+            "attackDist" : 100,
+            "attackSpeed" : 1,
+            "rad" : 1,
+            "rewardEXP" : 10
+        },
+        {
+            "id" : 1210001,
+            "name" : "MushRoomBoss",
+            "maxHP" : 10000,
+            "attack" : 150,
+            "defense" : 50,
+            "moveSpeed" : 1,
+            "attackDist" : 100,
+            "attackSpeed" : 1,
+            "rad" : 3,
+            "rewardEXP" : 100
+        },
+        {
+            "id" : 1200003,
+            "name" : "SummonedMushroom",
+            "maxHP" : 500,
+            "attack" : 100,
+            "defense" : 10,
+            "moveSpeed" : 3,
+            "attackDist" : 1,
+            "attackSpeed" : 1,
+            "rad" : 1,
+            "rewardEXP" : 0
+        },
+        {
+            "id" : 1200004,
+            "name" : "PlantMonster_ChargeType",
+            "maxHP" : 2000,
+            "attack" : 180,
+            "defense" : 10,
+            "moveSpeed" : 3,
+            "attackDist" : 1,
+            "attackSpeed" : 1,
+            "rad" : 1.5,
+            "rewardEXP" : 20
+        },
+        {
+            "id" : 1200005,
+            "name" : "PlantMonster_ShootType",
+            "maxHP" : 2000,
+            "attack" : 120,
+            "defense" : 10,
+            "moveSpeed" : 3,
+            "attackDist" : 100,
+            "attackSpeed" : 1,
+            "rad" : 1.0,
+            "rewardEXP" : 20
+        },
+        {
+            "id" : 1210002,
+            "name" : "PlantBoss",
+            "maxHP" : 22000,
+            "attack" : 250,
+            "defense" : 50,
+            "moveSpeed" : 2,
+            "attackDist" : 1,
+            "attackSpeed" : 1,
+            "rad" : 2,
+            "rewardEXP" : 200
+        },
+        {
+            "id" : 1200006,
+            "name" : "Wisp_Orange",
+            "maxHP" : 1000,
+            "attack" : 150,
+            "defense" : 50,
+            "moveSpeed" : 9,
+            "attackDist" : 1,
+            "attackSpeed" : 1,
+            "rad" : 1,
+            "rewardEXP" : 0
+        },
+        {
+            "id" : 1200007,
+            "name" : "WispGlow_Orange",
+            "maxHP" : 1500,
+            "attack" : 100,
+            "defense" : 10,
+            "moveSpeed" : 4,
+            "attackDist" : 30,
+            "attackSpeed" : 1,
+            "rad" : 1,
+            "rewardEXP" : 30
+        },
+        {
+            "id" : 1210003,
+            "name" : "WispBoss",
+            "maxHP" : 25000,
+            "attack" : 200,
+            "defense" : 50,
+            "moveSpeed" : 4,
+            "attackDist" : 30,
+            "attackSpeed" : 1,
+            "rad" : 2,
+            "rewardEXP" : 300
+        }
+    ]
+}

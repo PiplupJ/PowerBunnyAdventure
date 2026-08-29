@@ -1,0 +1,239 @@
+{   "stages" :[
+    {
+        "stageIndex": 1,
+        "stageType" : 0,
+        "stageMusic" : "Green_Normal",
+        "RoomID" : 3000001,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "enemies":[
+                    {"id":1200001, "x":3, "z":2}, 
+                    {"id":1200001, "x":5, "z":2},
+                    {"id":1200001, "x":7, "z":2}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 2,
+        "stageType" : 0,
+        "stageMusic" : "Green_Normal",
+        "RoomID" : 3000001,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "enemies":[
+                    {"id":1200001, "x":3, "z":3}, 
+                    {"id":1200001, "x":5, "z":3},
+                    {"id":1200001, "x":7, "z":3},
+                    {"id":1200002, "x":2, "z":1}, 
+                    {"id":1200002, "x":5, "z":1},
+                    {"id":1200002, "x":8, "z":1}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 3,
+        "stageType" : 0,
+        "stageMusic" : "Green_Normal",
+        "RoomID" : 3000001,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "enemies":[
+                    {"id":1200001, "x":2, "z":4}, 
+                    {"id":1200001, "x":3, "z":3},
+                    {"id":1200001, "x":5, "z":3},
+                    {"id":1200001, "x":7, "z":3},
+                    {"id":1200001, "x":8, "z":4},
+                    {"id":1200002, "x":1, "z":2}, 
+                    {"id":1200002, "x":5, "z":1},
+                    {"id":1200002, "x":9, "z":2}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 4,
+        "stageType" : 0,
+        "stageMusic" : "Green_Normal",
+        "RoomID" : 3000001,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "enemies":[
+                    {"id":1200001, "x":2, "z":4}, 
+                    {"id":1200001, "x":4, "z":3},
+                    {"id":1200001, "x":5, "z":5},
+                    {"id":1200001, "x":6, "z":3},
+                    {"id":1200001, "x":8, "z":4},
+                    {"id":1200002, "x":1, "z":1}, 
+                    {"id":1200002, "x":3, "z":2},
+                    {"id":1200002, "x":5, "z":1},
+                    {"id":1200002, "x":7, "z":2},
+                    {"id":1200002, "x":9, "z":1}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 5,
+        "stageType" : 2,
+        "stageMusic" : "Bonus",
+        "RoomID" : 3100000,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "items":[
+                    {"id":7000002, "x":4, "z":1},
+                    {"id":7100000, "x":3, "z":2}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 6,
+        "stageType" : 1,
+        "stageMusic" : "Green_Boss",
+        "RoomID" : 3000001,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "enemies":[
+                    {"id":1210001, "x":5, "z":3}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 7,
+        "stageType" : 2,
+        "stageMusic" : "Bonus",
+        "RoomID" : 3100000,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "items":[
+                    {"id":7000002, "x":4, "z":1},
+                    {"id":7100000, "x":3, "z":2}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 8,
+        "stageType" : 0,
+        "stageMusic" : "Desert_Normal",
+        "RoomID" : 3000102,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "enemies":[
+                    {"id":1200004, "x":1, "z":1}, 
+                    {"id":1200004, "x":5, "z":1},
+                    {"id":1200004, "x":1, "z":4},
+                    {"id":1200004, "x":5, "z":4}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 9,
+        "stageType" : 0,
+        "stageMusic" : "Desert_Normal",
+        "RoomID" : 3000101,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "enemies":[
+                    {"id":1200005, "x":2, "z":2}, 
+                    {"id":1200005, "x":6, "z":2},
+                    {"id":1200005, "x":2, "z":3},
+                    {"id":1200005, "x":6, "z":3}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 10,
+        "stageType" : 2,
+        "stageMusic" : "Bonus",
+        "RoomID" : 3100000,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "items":[
+                    {"id":7200001, "x":3, "z":1}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 11,
+        "stageType" : 0,
+        "stageMusic" : "Desert_Normal",
+        "RoomID" : 3000103,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "enemies":[
+                    {"id":1200005, "x":3, "z":4}, 
+                    {"id":1200005, "x":5, "z":4},
+                    {"id":1200004, "x":3, "z":5}, 
+                    {"id":1200004, "x":5, "z":5}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 12,
+        "stageType" : 0,
+        "stageMusic" : "Desert_Normal",
+        "RoomID" : 3000103,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "enemies":[
+                    {"id":1200005, "x":3, "z":4}, 
+                    {"id":1200005, "x":4, "z":4},
+                    {"id":1200005, "x":5, "z":4},
+                    {"id":1200004, "x":4, "z":2}, 
+                    {"id":1200004, "x":3, "z":3},
+                    {"id":1200004, "x":5, "z":3}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 13,
+        "stageType" : 2,
+        "stageMusic" : "Bonus",
+        "RoomID" : 3100000,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "items":[
+                    {"id":7000002, "x":4, "z":1},
+                    {"id":7100000, "x":3, "z":2}
+                ]
+            }
+        ]
+    },
+    {
+        "stageIndex": 14,
+        "stageType" : 1,
+        "stageMusic" : "Desert_Boss",
+        "RoomID" : 3000104,
+        "waveData" : [
+            {
+                "waveIndex" : 1,
+                "enemies":[
+                    {"id":1210002, "x":4, "z":6}
+                ]
+            }
+        ]
+    }
+]
+}
