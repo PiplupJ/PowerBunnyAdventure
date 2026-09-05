@@ -92,7 +92,7 @@ public class ChallengeWaveManager
 
         _enemySpawner.CreateEnemy(spawnID, (map.mapHeight+1)/2, (map.mapWidth+1)/2);
 
-        BGMController.Instance.PlayByStageMusic("Desert_Boss");
+        BGMController.Instance.PlayByBGMType(BGMType.ChallengeBoss);
 
     }   
     //一般ウェーブの場合、ランダムパターンで生成
@@ -109,7 +109,7 @@ public class ChallengeWaveManager
             _enemySpawner.CreateEnemy(spawnID, (int)cells[i].x, (int)cells[i].y);
 
         }
-        BGMController.Instance.PlayByStageMusic("Desert_Normal");
+        BGMController.Instance.PlayByBGMType(BGMType.ChallengeNormal);
 
     }
 

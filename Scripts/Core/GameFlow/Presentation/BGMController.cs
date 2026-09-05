@@ -9,7 +9,9 @@ public enum BGMType
     Stage_Desert_Boss = 14,
     BonusStage = 10,
     Title = 0,
-    WorldMap = 1
+    WorldMap = 1,
+    ChallengeNormal = 20,
+    ChallengeBoss = 21
 }
 
 [System.Serializable]
