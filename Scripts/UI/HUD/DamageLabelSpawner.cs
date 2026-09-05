@@ -1,0 +1,21 @@
+using UnityEngine;
+
+public static class DamageLabelSpawner
+{
+    //ダメージラベルID
+    const int damageLabelID = 6000000;
+    
+    public static void ShowDamage(int damage, bool wasCrit, Vector3 pos)
+    {
+        if(ObjectPool.Instance.TryGetObject<DamageLabel>(damageLabelID, out DamageLabel damageLabel))
+        {
+            damageLabel.Init(damage, wasCrit, pos);           
+        }
+ 
+    }
+
+    public static void ShowStatusDamage(int damage, StatusType type, Vector3 pos)
+    {
+
+    }
+}
