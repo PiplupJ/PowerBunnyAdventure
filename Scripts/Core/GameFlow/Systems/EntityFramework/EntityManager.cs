@@ -171,7 +171,7 @@ public class EntityManager :
         ShotData shotData = shotDataManager.GetShotDataByID(id);
         if(shotData == null) 
         {
-            Debug.LogWarning($"[EntitnyMaager]{id}に相当するプレイヤー弾を見つかりませんでした"); 
+            Debug.LogWarning($"[EntityManager]{id}に相当するプレイヤー弾を見つかりませんでした"); 
             return;
         }
 
@@ -203,7 +203,7 @@ public class EntityManager :
         ShotData shotData = shotDataManager.GetShotDataByID(id);
         if(shotData == null) 
         {
-            Debug.LogWarning($"[EntitnyMaager]{id}に相当する敵弾を見つかりませんでした"); 
+            Debug.LogWarning($"[EntityManager]{id}に相当する敵弾が見つかりませんでした"); 
             return;
         }
         if(!ObjectPool.Instance.TryGetObject<Shot>(id, out Shot eShot))
@@ -223,7 +223,7 @@ public class EntityManager :
         ShotData shotData = shotDataManager.GetShotDataByID(id);
         if(shotData == null) 
         {
-            Debug.LogWarning($"[EntitnyMaager]{id}に相当する敵ヒットボックスを見つかりませんでした"); 
+            Debug.LogWarning($"[EntityManager]{id}に相当する敵ヒットボックスを見つかりませんでした"); 
             return null;
         }
         if(!ObjectPool.Instance.TryGetObject<Shot>(id, out Shot eHitBox))
@@ -258,7 +258,7 @@ public class EntityManager :
         //Debug.Log("現在の敵数:"+_activeEnemies.Count);
         if(_activeEnemies.Count == 0) { return null; }
 
-        Enemy neareastEnemy = null;
+        Enemy nearestEnemy = null;
         float minDistSqr = maxAttackRange * maxAttackRange;
 
         for(int i = _activeEnemies.Count - 1; i >=0; i--)
@@ -274,12 +274,12 @@ public class EntityManager :
 
             if(currentDistSqr < minDistSqr)
             {
-                neareastEnemy = enemy;
+                nearestEnemy = enemy;
                 minDistSqr = currentDistSqr;
             }
         }
         //一番近い位置の敵を返却
-        return neareastEnemy;
+        return nearestEnemy;
     }
     //経験値アイテム追加
     public void CreateExpItem(Vector3 pos, float exp)

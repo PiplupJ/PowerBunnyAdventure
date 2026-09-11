@@ -34,11 +34,11 @@ public class GameManager : MonoBehaviour
     public ResultController resultController;
 
     //純粋C#クラスでGameManagerが生成
-    public MapManager mapManager; //マップデータを管理
-    public EntityManager entityManager; //敵、弾丸などのオブジェクトの生命周期を管理
-    public CollisionManager collisionManager; //オブジェクト間の物理判定を管理
-    public WaveManager waveManager; //ステージに登場する敵のウェーブを管理
-    public StageManager stageManager; //ステージをロード
+    private MapManager mapManager; //マップデータを管理
+    private EntityManager entityManager; //敵、弾丸などのオブジェクトの生命周期を管理
+    private CollisionManager collisionManager; //オブジェクト間の物理判定を管理
+    private WaveManager waveManager; //ステージに登場する敵のウェーブを管理
+    private StageManager stageManager; //ステージをロード
     
     //プレイヤ。GameManagerがシーンに配置
     [SerializeField] private int playerID = 1100001;

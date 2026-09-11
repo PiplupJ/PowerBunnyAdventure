@@ -24,6 +24,7 @@ public abstract class Shot : PoolableObject
         _mapCollision = mapCollision;
         _shotManager = manager;
         _isPlayerShot = isPlayerShot;
+        alreadyHit.Clear(); 
     }
     //弾丸を発射
     public virtual void FireShot(int shooterAttack, Vector3 shotDir)
@@ -70,7 +71,7 @@ public abstract class Shot : PoolableObject
         else{
             _shotManager.RemoveEnemyShot(this);
         }
-        alreadyHit.Clear();
+        
         ReturnToPool();
     }
 

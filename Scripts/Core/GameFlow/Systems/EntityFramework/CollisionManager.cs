@@ -30,6 +30,7 @@ public class CollisionManager
     {   
         //弾丸がないなら実行しない
         if(entityProvider.PlayerShots.Count == 0) { return; }
+        if(entityProvider.ActiveEnemies.Count == 0) { return;}
         //弾丸と敵の当たり判定
         for(int i = entityProvider.PlayerShots.Count - 1; i >=0; i--)
         {
@@ -41,13 +42,13 @@ public class CollisionManager
 
                 //敵が無くなった状態ならパス
                 if(enemy.GetState()!=EnemyState.Active) { continue; }
+                //敵が隠しているか
+                if(enemy.IsStealthed) { continue; }
 
                 float combinedRad = pShot.shotData.rad + enemy.stat.rad;
                 //衝突したか
-                if(hadCollision(pShot.transform.position, enemy.transform.position, combinedRad))
+                if(HadCollision(pShot.transform.position, enemy.transform.position, combinedRad))
                 {
-                    //敵が隠しているか
-                    if(enemy.IsStealthed) { continue; }
                     //この弾にもう攻撃されたか
                     if (!pShot.TryHit(enemy.GetInstanceID())) continue;
                     //クリティカル攻撃だったか
@@ -86,7 +87,7 @@ public class CollisionManager
 
             float combinedRad = eShot.shotData.rad + player.stat.rad;
             //衝突したか
-            if(hadCollision(eShot.transform.position, player.transform.position, combinedRad))
+            if(HadCollision(eShot.transform.position, player.transform.position, combinedRad))
             {
                 //この弾にもう攻撃されたか
                 if (!eShot.TryHit(player.GetInstanceID())) continue;
@@ -113,7 +114,7 @@ public class CollisionManager
 
             float combinedRad = item.rad + player.stat.rad;
 
-            if(hadCollision(item.transform.position, player.transform.position, combinedRad))
+            if(HadCollision(item.transform.position, player.transform.position, combinedRad))
             {
                 item.ApplyEffect();
                 break;
@@ -133,7 +134,7 @@ public class CollisionManager
 
             float combinedRad = exp.rad + player.stat.rad;
 
-            if(hadCollision(exp.transform.position, player.transform.position, combinedRad))
+            if(HadCollision(exp.transform.position, player.transform.position, combinedRad))
             {
                 player.levelUpSystem.ExpCalculation(exp.rewardExp);
                 exp.ApplyEffect();
@@ -141,7 +142,7 @@ public class CollisionManager
         }
     }
     //衝突したかを判定
-    private bool hadCollision(Vector3 posA, Vector3 posB, float combinedRad)
+    private bool HadCollision(Vector3 posA, Vector3 posB, float combinedRad)
     {
         Vector3 distVec = posA - posB;
         float distSqr = distVec.x * distVec.x + distVec.y * distVec.y + distVec.z * distVec.z;

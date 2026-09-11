@@ -90,6 +90,7 @@ public class ObjectPool : MonoBehaviour, IObjectPool
                 return null;
             }
             pooledObj.gameObject.SetActive(true);
+            pooledObj.isPooled = false;
             return pooledObj;
         }
         else{
@@ -107,13 +108,15 @@ public class ObjectPool : MonoBehaviour, IObjectPool
                 baseObj.poolId = id;
                 baseObj.myPool = this;
 
-                //返却のため、刑を再定義
+                //返却のため、型を再定義
                 T newObj = baseObj as T;
                 if(newObj == null)
                 {
                     Debug.LogError($"[ObjectPool]{id}のプールに{typeof(T).Name}と一致しているオブジェクトがありません");
                     return null;
                 }
+
+                newObj.isPooled = false;
 
 	            return newObj;
 	        }
@@ -128,6 +131,11 @@ public class ObjectPool : MonoBehaviour, IObjectPool
     public void ReturnObject(int id, PoolableObject obj)
     {
         if(obj == null) { return;}
+        if(obj.isPooled == true){ 
+            Debug.LogWarning($"[ObjectPool]{id}のオブジェクトが２重返却");
+            return;
+        }
+
         
         //待機キューが未実装だった
         if(!poolDict.TryGetValue(id, out Queue<PoolableObject> queue))
@@ -136,13 +144,8 @@ public class ObjectPool : MonoBehaviour, IObjectPool
             poolDict.Add(id, queue);
         }
 
-        if(queue.Contains(obj))
-        {
-            Debug.LogWarning($"[ObjectPool]{id}のオブジェクトが２種返却");
-            return; //無視
-        }
-
         obj.gameObject.SetActive(false);
+        obj.isPooled = true;
         queue.Enqueue(obj);
     }
 }
